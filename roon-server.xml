@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Containers>
+  <TemplateURL>https://raw.githubusercontent.com/magnu5/docker-templates/master/magnu5/roon-server.xml</TemplateURL>
+  <Beta>False</Beta>
+  <Category>Multimedia</Category>
+  <Name>roon-server</Name>
+  <Description>
+    Forget everything you know about music players. Music is an experience, and Roon reconnects you with it. This is the Server component.
+  </Description>
+  <Overview>
+    Forget everything you know about music players. Music is an experience, and Roon reconnects you with it. This is the Server component.
+  </Overview>
+  <Support></Support>
+  <Registry>https://hub.docker.com/r/magnust/roon-server</Registry>
+  <GitHub>https://www.github.com/magnu5/roon-server</GitHub>
+  <Repository>magnust/roon-server</Repository>
+  <Project>https://roonlabs.com</Project>
+  <BindTime>true</BindTime>
+  <Privileged>false</Privileged>
+    <Networking>
+    <Mode>host</Mode>
+  </Networking>
+  <Environment>
+    <Variable>
+      <Name>UMASK</Name>
+      <Value>000</Value>
+    </Variable>
+    <Variable>
+      <Name>PUID</Name>
+      <Value>99</Value>
+    </Variable>
+    <Variable>
+      <Name>PGID</Name>
+      <Value>100</Value>
+    </Variable>
+  </Environment>
+  <Data>
+    <Volume>
+      <HostDir>/opt/RoonServer</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/data</HostDir>
+      <ContainerDir>/var/RoonServer</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Icon>https://raw.githubusercontent.com/magnu5/docker-templates/master/magnu5/images/roon-server.png</Icon>
+  <ExtraParams></ExtraParams>
+</Containers>
