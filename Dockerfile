@@ -4,7 +4,7 @@ FROM ubuntu:20.04
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
 
 # Install depends
-RUN apt update -yqq && apt install -yqq curl ffmpeg cifs-utils
+RUN apt update -yqq && apt install -yqq curl ffmpeg cifs-utils tzdata
 
 # Environment variables
 ENV ROON_DATAROOT /var/RoonServer
