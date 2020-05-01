@@ -4,7 +4,7 @@ FROM ubuntu:focal
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
 
 # Install depends
-RUN apt update -yqq && apt install -yqq curl ffmpeg cifs-utils libav-tools
+RUN apt update -yqq && apt install -yqq curl ffmpeg cifs-utils
 
 # Environment variables
 ENV ROON_DATAROOT /var/RoonServer
