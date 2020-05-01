@@ -4,7 +4,7 @@ FROM ubuntu:latest
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
 
 # Install depends
-RUN apt -yqq install tar curl ffmpeg avconv
+RUN apt update -yqq && apt install -yqq tar curl ffmpeg
 
 # Copy install script
 WORKDIR /opt/RoonServer
