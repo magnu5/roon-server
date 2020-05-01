@@ -3,6 +3,9 @@ FROM ubuntu:latest
 
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
 
+# Install depends
+RUN apt -yqq install tar curl ffmpeg avconv
+
 # Copy install script
 WORKDIR /opt/RoonServer
 ADD roonserver-installer-linuxx64–docker.sh /opt/RoonServer
