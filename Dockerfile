@@ -4,7 +4,7 @@ FROM ubuntu:latest
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
 
 # Install depends
-RUN apt update -yqq && apt install -yqq tar curl ffmpeg
+RUN apt update -yqq && apt install -yqq tar curl ffmpeg cifs-utils
 
 # Copy install script
 WORKDIR /opt/RoonServer
