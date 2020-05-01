@@ -16,19 +16,8 @@ OK=0
 
 CLEAN_EXIT=0
 
-# for colorization
-ESC_SEQ="\033["
-COL_RESET=$ESC_SEQ"39;49;00m"
-COL_RED=$ESC_SEQ"31;01m"
-COL_GREEN=$ESC_SEQ"32;01m"
-COL_YELLOW=$ESC_SEQ"33;01m"
-COL_BLUE=$ESC_SEQ"34;01m"
-COL_MAGENTA=$ESC_SEQ"35;01m"
-COL_CYAN=$ESC_SEQ"36;01m"
-COL_BOLD=$ESC_SEQ"1m"
-
 function hr {
-    echo -e "${COL_BOLD}--------------------------------------------------------------------------------------${COL_RESET}"
+    echo -e "--------------------------------------------------------------------------------------"
 }
 
 function clean_up { 
@@ -37,7 +26,7 @@ function clean_up {
         echo ""
         hr
         echo ""
-        echo -e "${COL_BOLD}${COL_RED}The $PACKAGE_NAME installer did not complete successfully.${COL_RESET}"
+        echo -e "The $PACKAGE_NAME installer did not complete successfully."
         echo ""
         echo "If you are not sure how to proceed, please check out:"
         echo ""
@@ -51,46 +40,20 @@ function clean_up {
 trap clean_up EXIT
 
 function install {
-    #
-    # Print banner/message
-    #
-    echo ""
-    hr
-    echo ""
-    echo -e "${COL_BOLD}Welcome to the $PACKAGE_NAME installer${COL_RESET}"
-    echo ""
-    echo "This installer sets up $PACKAGE_NAME to run on linux with the following settings:" 
-    echo ""
-    echo " - $PACKAGE_NAME will be installed in /opt/$PACKAGE_NAME"
-    echo " - $PACKAGE_NAME's data will be stored in /var/roon/$PACKAGE_NAME"
-    echo " - $PACKAGE_NAME will be configured to run as a system service"
-    echo " - $PACKAGE_NAME will run as root"
-    echo ""
-    echo "These settings are suitable for turning a dedicated or semi-dedicated device"
-    echo "into an appliance that runs $PACKAGE_NAME"
-    echo ""
-    echo "If you want customize how $PACKAGE_NAME is installed, see:"
-    echo ""
-    echo "   http://kb.roonlabs.com/LinuxInstall"
-    echo ""
-    hr
-    echo ""
 
-
-    #
     # Check for linux (in case someone runs on OS X, Cygwin, BSD, etc)
-    #
+
     case `uname -s` in 
         Linux)
             ;;
         *)
-            echo -e "${COL_RED}${COL_BLOLD}Error:${COL_RESET} This package is intended for Linux platforms. It is not compatible with your machine. Exiting."
+            echo -e "Error: This package is intended for Linux platforms. It is not compatible with your machine. Exiting."
             ;;
     esac
 
-    #
+
     # Check for proper architecture
-    #
+
     case "$MACHINE_ARCH" in
         armv7*)
             if [ x$ARCH = xarmv7hf ]; then OK=1; fi
@@ -107,23 +70,20 @@ function install {
             ;;
     esac
 
-    #
     # Check for root privileges
-    #
+
     if [ x$UID != x0 ]; then
         echo ""
-        echo -e "${COL_RED}${COL_BLOLD}Error:${COL_RESET} This installer must be run with root privileges. Exiting."
+        echo -e "Error: This installer must be run with root privileges. Exiting."
         echo ""
         exit 2
     fi
 
-    #
     # Check for ffmpeg/avconv
-    #
 
     if [ x$OK != x1 ]; then
         echo ""
-        echo -e "${COL_RED}${COL_BLOLD}Error:${COL_RESET} This package is intended for $ARCH platforms. It is not compatible with your machine. Exiting."
+        echo -e "Error: This package is intended for $ARCH platforms. It is not compatible with your machine. Exiting."
         echo ""
         exit 3
     fi
@@ -154,7 +114,7 @@ function install {
     if [ -e /opt/$PACKAGE_NAME ]; then
         hr
         echo ""
-        echo -e "${COL_RED}${COL_BOLD}Warning:${COL_RESET} The /opt/$PACKAGE_NAME directory already exists."
+        echo -e "Warning: The /opt/$PACKAGE_NAME directory already exists."
         echo ""
         echo "This usually indicates that $PACKAGE_NAME was installed previously on this machine. The previous"
         echo "installation must be deleted before the installation can proceed."
@@ -382,143 +342,6 @@ END_LSB_INIT
     hr
     echo ""
 }
-
-function uninstall {
-    #
-    # Print banner/message
-    #
-    echo ""
-    hr
-    echo ""
-    echo -e "${COL_BOLD}Welcome to the $PACKAGE_NAME uninstaller${COL_RESET}"
-    echo ""
-    echo "This removes $PACKAGE_NAME from your machine by doing the following:"
-    echo ""
-    echo " - deleting all files in /opt/$PACKAGE_NAME"
-    echo " - removing $PACKAGE_NAME as a system service"
-    echo ""
-    echo "This uninstaller is only for systems that were installed using this installer script." 
-    echo "If you performed a custom install by hand, this is not for you."
-    echo ""
-    echo "   http://kb.roonlabs.com/LinuxInstall"
-    echo ""
-    hr
-    echo ""
-
-
-    #
-    # Check for linux (in case someone runs on OS X, Cygwin, BSD, etc)
-    #
-    case `uname -s` in 
-        Linux)
-            ;;
-        *)
-            echo -e "${COL_RED}${COL_BLOLD}Error:${COL_RESET} This package is intended for Linux platforms. It is not compatible with your machine. Exiting."
-            ;;
-    esac
-
-    #
-    # Check for proper architecture
-    #
-    case "$MACHINE_ARCH" in
-        armv7*)
-            if [ x$ARCH = xarmv7hf ]; then OK=1; fi
-            ;;
-        aarch64*)
-            if [ x$ARCH = xarmv8 ]; then OK=1; fi
-            if [ x$ARCH = xarmv7hf ]; then OK=1; fi
-            ;;
-        x86_64*)
-            if [ x$ARCH = xx64 ]; then OK=1; fi 
-            ;;
-        i686*)
-            if [ x$ARCH = xx86 ]; then OK=1; fi 
-            ;;
-    esac
-
-    #
-    # Check for root privileges
-    #
-    if [ x$UID != x0 ]; then
-        echo ""
-        echo -e "${COL_RED}${COL_BLOLD}Error:${COL_RESET} This installer must be run with root privileges. Exiting."
-        echo ""
-        exit 2
-    fi
-
-    if [ x$OK != x1 ]; then
-        echo ""
-        echo -e "${COL_RED}${COL_BLOLD}Error:${COL_RESET} This package is intended for $ARCH platforms. It is not compatible with your machine. Exiting."
-        echo ""
-        exit 3
-    fi
-
-    # set up systemd 
-    HAS_SYSTEMCTL=1; which systemctl >/dev/null || HAS_SYSTEMCTL=0
-
-    if [ $HAS_SYSTEMCTL = 1 -a -d /etc/systemd/system ]; then
-        SERVICE_FILE=/etc/systemd/system/${PACKAGE_NAME_LOWER}.service
-
-        echo ""
-        echo "Stopping service $PACKAGE_NAME_LOWER"
-        systemctl stop $PACKAGE_NAME_LOWER || true
-        echo "Service Stopped"
-
-        echo ""
-        echo "Disabling service ${PACKAGE_NAME_LOWER}..."
-        systemctl disable ${PACKAGE_NAME_LOWER}.service || true
-        echo "Service Disabled"
-
-        echo ""
-        echo "Removing service file $SERVICE_FILE"
-        rm -f $SERVICE_FILE
-
-    else
-        SERVICE_FILE=/etc/init.d/${PACKAGE_NAME_LOWER}
-
-        echo ""
-        echo "Stopping service ${PACKAGE_NAME_LOWER}..."
-        $SERVICE_FILE stop >/dev/null 2>&1 || true
-        echo "Service Stopped"
-
-        echo ""
-        echo "Removing service ${PACKAGE_NAME_LOWER}..."
-        if [ $HAS_UPDATE_RC_D = 1 ]; then
-            echo ""
-            echo "Disabling service ${PACKAGE_NAME_LOWER} using update-rc.d..."
-            update-rc.d ${PACKAGE_NAME_LOWER} remove
-            echo "Service Disabled"
-        elif [ $HAS_CHKCONFIG = 1 ]; then
-            echo ""
-            echo "Disabling service ${PACKAGE_NAME_LOWER} using chkconfig..."
-            chkconfig --del ${PACKAGE_NAME_LOWER}
-            echo "Service Disabled"
-        else
-            echo "Couldn't find a way to disable the init script"
-            exit 0
-        fi
-        echo "Service Removed"
-
-        echo ""
-        echo "Removing service file $SERVICE_FILE"
-        rm -f $SERVICE_FILE
-    fi
-
-    echo ""
-    echo -n "Deleting all files in /opt/$PACKAGE_NAME"
-    rm -Rf /opt/$PACKAGE_NAME
-
-    CLEAN_EXIT=1
-
-    echo ""
-    hr
-    echo ""
-    echo "All Done! $PACKAGE_NAME should be uninstalled."
-    echo ""
-    hr
-    echo ""
-}
-
 
 if [ x$1 == xuninstall ]; then
     uninstall

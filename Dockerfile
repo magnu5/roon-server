@@ -1,16 +1,14 @@
 # Base image
-FROM ubuntu:20.04
+FROM ubuntu:latest
 
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
-
-# Install depends
-RUN apt update -yqq && apt install -yqq curl ffmpeg cifs-utils tzdata
 
 # Environment variables
 ENV ROON_DATAROOT /var/RoonServer
 ENV ROON_ID_DIR /var/RoonServer
-ENV LANG C.UTF-8
-ENV TZ Europe/Helsinki
+
+# Install depends
+RUN apt update -yqq && apt install -yqq curl ffmpeg cifs-utils
 
 # Copy install script
 WORKDIR /opt/RoonServer
