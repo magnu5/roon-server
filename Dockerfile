@@ -1,5 +1,5 @@
 # Base image
-FROM ubuntu:latest
+FROM ubuntu:focal
 
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
 
