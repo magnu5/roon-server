@@ -1,2 +1,2 @@
 # roon-server
-Ubuntu LTS and Roon Server package
+Roon-server on Ubuntu LTS
