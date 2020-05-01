@@ -1,5 +1,5 @@
 # Base image
-FROM ubuntu:focal
+FROM ubuntu:20.04
 
 MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
 
