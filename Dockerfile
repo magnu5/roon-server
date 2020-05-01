@@ -14,5 +14,5 @@ ADD roonserver-installer-linuxx64–docker.sh /opt/RoonServer
 RUN chmod +x roonserver-installer-linuxx64–docker.sh
 RUN ./roonserver-installer-linuxx64–docker.sh
 
-VOLUME [ "/var/RoonServer", "/music", "/backups" ]
+VOLUME [ "/opt/RoonServer", "/music", "/backups" ]
 ENTRYPOINT /opt/RoonServer/start.sh
