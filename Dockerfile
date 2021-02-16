@@ -1,5 +1,5 @@
 FROM archlinux:latest
-RUN pacman -Syu
+RUN pacman -Syyu
 
 ENV ROON_DATAROOT /var/roon
 ENV ROON_ID_DIR /var/roon
