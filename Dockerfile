@@ -1,24 +1,15 @@
-# Base image
-FROM ubuntu:latest
+FROM archlinux:latest
+RUN pacman -Syu
 
-MAINTAINER Magnus Tuominen <magnus.tuominen@outlook.com>
+ENV ROON_DATAROOT /var/roon
+ENV ROON_ID_DIR /var/roon
 
-# Environment variables
-ENV ROON_DATAROOT /var/RoonServer
-ENV ROON_ID_DIR /var/RoonServer
+RUN install_packages bzip2 wget ffmpeg cifs-utils
 
-# Install depends
-RUN apt update -yqq && apt install -yqq curl ffmpeg cifs-utils
+RUN wget -q --no-check-certificate -O- https://download.roonlabs.com/builds/RoonServer_linuxx64.tar.bz2 \
+    | tar xjf - -C /opt
 
-# Copy install script
-WORKDIR /opt/RoonServer
-ADD roonserver-installer-linuxx64–docker.sh /opt/RoonServer
+VOLUME [$ROON_DATAROOT, "/music", "/backups"]
 
-# Make install script executable and run it
-RUN chmod +x roonserver-installer-linuxx64–docker.sh && ./roonserver-installer-linuxx64–docker.sh
-
-# Volumes
-VOLUME [ "/var/RoonServer", "/music", "/backups", "/var/roon/RoonServer" ]
-
-# Do the thing
+RUN /opt/RoonServer/check.sh
 ENTRYPOINT /opt/RoonServer/start.sh

@@ -1,2 +1,2 @@
 # roon-server
-Roon-server on Ubuntu LTS
+Roon-server on Archlinux
