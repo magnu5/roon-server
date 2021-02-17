@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN install_packages libasound2 ffmpeg cifs-utils ffmpeg
+RUN install_packages libasound2 ffmpeg cifs-utils ffmpeg bzip2 wget
 
 ENV ROON_DATAROOT /var/roon
 ENV ROON_ID_DIR /var/roon
