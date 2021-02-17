@@ -1,8 +1,5 @@
 FROM archlinux:latest
-RUN mkdir -p /var/cache/pacman/pkg
-RUN mkdir -p /var/lib/pacman
-RUN mkdir -p /var/log
-RUN pacman -Syyu
+RUN mkdir -p /var/lib/pacman && pacman -Syyu
 
 ENV ROON_DATAROOT /var/roon
 ENV ROON_ID_DIR /var/roon
