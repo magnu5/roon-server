@@ -1,10 +1,12 @@
-FROM archlinux:base-devel
-RUN pacman -Syu --noconfirm
-RUN install_packages alsa-lib cifs-utils ffmpeg
+FROM ubuntu:latest
+
+RUN install_packages libasound2 ffmpeg cifs-utils ffmpeg
+
 ENV ROON_DATAROOT /var/roon
 ENV ROON_ID_DIR /var/roon
-RUN rm -rf /opt/RoonServer
-RUN git clone https://aur.archlinux.org/roonserver.git && cd roonserver && makepkg -si
+
+RUN wget -q --no-check-certificate -O- https://download.roonlabs.com/builds/RoonServer_linuxx64.tar.bz2 \
+ 	| tar xjf - -C /opt
 
 VOLUME [$ROON_DATAROOT, "/music", "/backups"]
 
