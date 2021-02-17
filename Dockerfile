@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 
-RUN apt update && apt install libasound2 alsa-lib ffmpeg cifs-utils ffmpeg bzip2 wget
+RUN apt update && apt dist-upgrade -yqq
+RUN apt install -yqq libasound2 ffmpeg cifs-utils ffmpeg bzip2 wget
 
 ENV ROON_DATAROOT /var/roon
 ENV ROON_ID_DIR /var/roon
